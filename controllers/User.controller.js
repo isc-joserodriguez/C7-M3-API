@@ -66,15 +66,15 @@ const eliminarUsuarioPorId = async (req, res) => {
 };
 
 const eliminarUsuariosPorFiltro = async (req, res) => {
-    try {
-      const eliminados = await User.deleteMany(req.body);
-      return res
-        .status(200)
-        .json({ mensaje: "Usuarios eliminados", detalles: eliminados });
-    } catch (e) {
-      return res.status(400).json({ mensaje: "Error", detalles: e.message });
-    }
-  };
+  try {
+    const eliminados = await User.deleteMany(req.body);
+    return res
+      .status(200)
+      .json({ mensaje: "Usuarios eliminados", detalles: eliminados });
+  } catch (e) {
+    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+  }
+};
 
 module.exports = {
   registro,
