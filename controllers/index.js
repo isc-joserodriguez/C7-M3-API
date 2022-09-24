@@ -4,6 +4,7 @@ const {
   filtrarUsuarios,
   eliminarUsuarioPorId,
   eliminarUsuariosPorFiltro,
+  actualizarUsuario,
 } = require("./User.controller");
 
 module.exports = {
@@ -12,4 +13,5 @@ module.exports = {
   filtrarUsuarios,
   eliminarUsuarioPorId,
   eliminarUsuariosPorFiltro,
+  actualizarUsuario,
 };
