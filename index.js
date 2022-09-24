@@ -17,13 +17,13 @@ const app = express();
 app.use(express.json());
 
 //! 6.- Conexión a mongo
-mongoose.connect(process.env.URI_MONGO);
+mongoose.connect(process.env.URI_MONGOO);
 
 //! 7.- Definir rutas
 app.use("/v1", routes);
 
 app.use((req, res, next) => {
-  res.send('<a href="/v1">Go to API</a>');
+  res.send('<a href="/v1">Go to API V1.1</a>');
 });
 
 //! 8.- Levantar servidor
