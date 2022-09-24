@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 
 //! 6.- Conexión a mongo
-mongoose.connect(process.env.URI_MONGOO);
+mongoose.connect(process.env.URI_MONGO);
 
 //! 7.- Definir rutas
 app.use("/v1", routes);
