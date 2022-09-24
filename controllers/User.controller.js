@@ -29,9 +29,59 @@ const verUsuarios = async (req, res) => {
   }
 };
 
+const filtrarUsuarios = async (req, res) => {
+  try {
+    const usuarios = await User.find(req.body);
+    if (!usuarios.length)
+      return res
+        .status(404)
+        .json({ mensaje: "Error", detalles: "Usuarios no encontrados" });
+    return res
+      .status(200)
+      .json({ mensaje: "Usuarios encontrados", detalles: usuarios });
+  } catch (e) {
+    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+  }
+};
+
+const eliminarUsuarioPorId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (id.length !== 24)
+      return res
+        .status(400)
+        .json({ mensaje: "Error", detalles: "ID no válido" });
+    const usuario = await User.findById(id);
+    if (!usuario)
+      return res
+        .status(404)
+        .json({ mensaje: "Error", detalles: "Usuario no encontrado" });
+    const eliminado = await User.findByIdAndDelete(id);
+    return res
+      .status(200)
+      .json({ mensaje: "Usuario eliminado", detalles: eliminado });
+  } catch (e) {
+    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+  }
+};
+
+const eliminarUsuariosPorFiltro = async (req, res) => {
+    try {
+      const eliminados = await User.deleteMany(req.body);
+      return res
+        .status(200)
+        .json({ mensaje: "Usuarios eliminados", detalles: eliminados });
+    } catch (e) {
+      return res.status(400).json({ mensaje: "Error", detalles: e.message });
+    }
+  };
+
 module.exports = {
   registro,
   verUsuarios,
+  filtrarUsuarios,
+  eliminarUsuarioPorId,
+  eliminarUsuariosPorFiltro,
   //actualizarUsuario,
   //eliminarUsuario,
 };

@@ -22,6 +22,10 @@ mongoose.connect(process.env.URI_MONGO);
 //! 7.- Definir rutas
 app.use("/v1", routes);
 
+app.use((req, res, next) => {
+  res.send('<a href="/v1">Go to API</a>');
+});
+
 //! 8.- Levantar servidor
 app.listen(process.env.PORT, () => {
   console.log(`Servidor iniciado en el puerto: ${process.env.PORT}`);
