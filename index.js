@@ -14,6 +14,18 @@ const routes = require("./routes");
 const app = express();
 
 //! 5.- Configurar Middlewares
+/* const whitelist = ["http://example1.com", "http://example2.com"];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+); */
 app.use(cors());
 app.use(express.json());
 
