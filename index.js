@@ -1,28 +1,28 @@
+//! 1.- Importar variables de entorno
 require("dotenv").config();
 
-/**
- * 1.- Importar Express
- * 2.- Crear modelos
- * 3.- Crear controladores
- * 4.- Crear rutas
- * 5.- Hacer instancia de la aplicación
- * 6.- Importar rutas
- * 7.- Middlewares
- * 8.- Levantar el servidor
- */
+//! 2.- Importar los modelos
+require("./models");
 
-//! 1.- Importar Express
+//! 3.- Importar Express, mongoose & Router
 const express = require("express");
+const mongoose = require("mongoose");
+const routes = require("./routes");
+// CORS
 
-//! 5.- Hacer instancia de la aplicación
+//! 4.- Hacer instancia de la aplicación
 const app = express();
 
-//! 6.- Configurar Middlewares
+//! 5.- Configurar Middlewares
 app.use(express.json());
 
-//! 7.- Importar Rutas
+//! 6.- Conexión a mongo
+mongoose.connect(process.env.URI_MONGO);
+
+//! 7.- Definir rutas
+app.use("/v1", routes);
 
 //! 8.- Levantar servidor
-app.listen(process.env.PORT, ()=>{
-    console.log(`Servidor iniciado en el puerto: ${process.env.PORT}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor iniciado en el puerto: ${process.env.PORT}`);
 });

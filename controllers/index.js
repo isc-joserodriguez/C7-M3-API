@@ -1,4 +1,4 @@
-const { registro, verUsuarios } = require("User.controller");
+const { registro, verUsuarios } = require("./User.controller");
 
 module.exports = {
   registro,
