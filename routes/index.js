@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userRouter = require("./User.route");
+const peliculaRouter = require("./Pelicula.route");
 
 router.get("/", (req, res) => {
   res.send(`
@@ -9,5 +10,6 @@ router.get("/", (req, res) => {
 });
 
 router.use("/user", userRouter);
+router.use("/pelicula", peliculaRouter);
 
 module.exports = router;
