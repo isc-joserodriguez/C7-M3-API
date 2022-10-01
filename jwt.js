@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const secret = 'mysecret';
+const secret = 'micadenaultramegasecretaquenodebetenernadie';
 
 const generarToken = (payload) => {
     return jwt.sign(

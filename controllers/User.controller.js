@@ -12,9 +12,38 @@ const registro = async (req, res) => {
 
     user.hashPassword(password);
 
-    const resp = await user.save();
+    await user.save();
 
-    return res.status(201).json({ mensaje: "Usuario creado", detalles: resp });
+    return res
+      .status(201)
+      .json({ mensaje: "Usuario creado", detalles: user.onSingGenerateJWT() });
+  } catch (e) {
+    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    //Creamos nuestro usuario con lo que viene del body
+    const { correo, password } = req.body;
+
+    const user = await User.findOne({ correo });
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ mensaje: "Error", detalles: "Usuario no encontrado" });
+    }
+
+    if (user.verifyPassword(password)) {
+      return res
+        .status(200)
+        .json({ mensaje: "Login correcto", detalles: user.generateJWT() });
+    }
+
+    return res
+      .status(400)
+      .json({ mensaje: "Error", detalles: "Verifica tus credenciales" });
   } catch (e) {
     return res.status(400).json({ mensaje: "Error", detalles: e.message });
   }
@@ -22,6 +51,14 @@ const registro = async (req, res) => {
 
 const verUsuarios = async (req, res) => {
   try {
+    if (req.user.tipo !== "cliente") {
+      return res
+        .status(400)
+        .json({
+          mensaje: "Error",
+          detalles: "No tienes permiso para ver esto",
+        });
+    }
     const usuarios = await User.find();
     if (!usuarios.length)
       return res
@@ -106,4 +143,5 @@ module.exports = {
   eliminarUsuarioPorId,
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
+  login,
 };

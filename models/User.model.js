@@ -7,10 +7,15 @@
 //! 1.- Importar mongoose & Crypto
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
 //! 2.- Crear el esquema
 const UserSchema = new mongoose.Schema({
   nombre: {
+    type: String,
+    require: true,
+  },
+  correo: {
     type: String,
     require: true,
   },
@@ -37,11 +42,31 @@ const UserSchema = new mongoose.Schema({
 });
 
 //! Funciones del modelo
+UserSchema.methods.encryptString = function (stringToEncrypt, salt) {
+  return crypto
+    .pbkdf2Sync(stringToEncrypt, salt, 10000, 512, "sha512")
+    .toString("hex");
+};
+
 UserSchema.methods.hashPassword = function (password) {
   this.salt = crypto.randomBytes(16).toString("hex");
-  this.password = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
-    .toString("hex");
+  this.password = this.encryptString(password, this.salt);
+};
+
+UserSchema.methods.verifyPassword = function (password) {
+  return this.password === this.encryptString(password, this.salt);
+};
+
+UserSchema.methods.generateJWT = function () {
+  return jwt.sign({ idUser: this._id, tipo: this.tipo }, process.env.SECRET);
+};
+
+UserSchema.methods.onSingGenerateJWT = function () {
+  return {
+    idUser: this._id,
+    tipo: this.tipo,
+    token: this.generateJWT(),
+  };
 };
 
 //! 3.- Exportar modelo
