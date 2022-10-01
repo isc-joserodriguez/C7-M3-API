@@ -11,15 +11,15 @@ const mongoose = require("mongoose");
 const PeliculaSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    require: true,
+    required: true,
   },
   año: {
     type: Number,
-    require: true,
+    required: true,
   },
   director: {
-    type: String,
-    require: true,
+    type: mongoose.ObjectId,
+    ref: "User",
   },
 });
 

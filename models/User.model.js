@@ -14,11 +14,11 @@ const uniqueValidator = require("mongoose-unique-validator");
 const UserSchema = new mongoose.Schema({
   nombre: {
     type: String,
-    require: true,
+    required: true,
   },
   correo: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
     match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, "Email inválido"],
   },

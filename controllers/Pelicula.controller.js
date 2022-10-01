@@ -8,7 +8,10 @@ const nuevaPelicula = async (req, res) => {
 
     const resp = await pelicula.save();
 
-    return res.status(201).json({ mensaje: "Pelicula creada", detalles: resp });
+    return res.status(201).json({
+      mensaje: "Pelicula creada",
+      detalles: await resp.populate("director", "nombre"),
+    });
   } catch (e) {
     return res.status(400).json({ mensaje: "Error", detalles: e.message });
   }
@@ -16,7 +19,33 @@ const nuevaPelicula = async (req, res) => {
 
 const verPeliculas = async (req, res) => {
   try {
-    const peliculas = await Pelicula.find();
+    // const peliculas = await Pelicula.find().populate("director");
+    const peliculas = await Pelicula.find().populate("director", "nombre");
+    /* const peliculas = await Pelicula.find().populate({
+      path: "director",
+      select: {
+        nombre: true,
+        tipo: true,
+      },
+      populate: {
+        path: "tipo",
+        select: {
+          nombre: true,
+        },
+      },
+    }).populate({
+      path: "otra",
+      select: {
+        nombre: true,
+        tipo: true,
+      },
+      populate: {
+        path: "tipo",
+        select: {
+          nombre: true,
+        },
+      },
+    }); */
     if (!peliculas.length)
       return res
         .status(404)
@@ -58,7 +87,7 @@ const actualizarPelicula = async (req, res) => {
       id,
       { $set: req.body },
       { new: true }
-    );
+    ).populate("director", "nombre");
     return res
       .status(200)
       .json({ mensaje: "Pelicula actualizada", detalles: actualizado });
