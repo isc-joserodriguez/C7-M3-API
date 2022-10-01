@@ -4,7 +4,13 @@ const User = mongoose.model("User");
 const registro = async (req, res) => {
   try {
     //Creamos nuestro usuario con lo que viene del body
+    const { password } = req.body;
+
+    delete req.body.password;
+
     const user = new User(req.body);
+
+    user.hashPassword(password);
 
     const resp = await user.save();
 
