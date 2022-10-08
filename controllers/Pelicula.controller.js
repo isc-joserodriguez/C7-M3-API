@@ -3,6 +3,15 @@ const Pelicula = mongoose.model("Pelicula");
 
 const nuevaPelicula = async (req, res) => {
   try {
+    if (req.user.tipo !== "admin") {
+      return res
+        .status(403)
+        .json({
+          mensaje: "Error",
+          detalles: "Sólo un admin puede crear una película",
+        });
+    }
+
     //Creamos nuestro usuario con lo que viene del body
     const pelicula = new Pelicula(req.body);
 
