@@ -1,4 +1,4 @@
-const jwt = require("express-jwt");
+const { expressjwt: jwt } = require("express-jwt");
 
 const getToken = (req) => {
   const { authorization } = req.headers;
@@ -15,7 +15,7 @@ const getToken = (req) => {
 const auth = jwt({
   secret: process.env.SECRET,
   algorithms: ["HS256"],
-  userProperty: "user",
+  requestProperty: "user",
   getToken,
 });
 

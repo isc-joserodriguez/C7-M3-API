@@ -21,10 +21,10 @@ const {
 } = require("../controllers");
 
 //! 4.- Declaramos las rutas
-router.post("/", nuevaPelicula);
-router.get("/getAll", verPeliculas);
-router.delete("/:id", eliminarPeliculaPorId);
-router.put("/:id", actualizarPelicula);
+router.post("/", auth, nuevaPelicula);
+router.get("/getAll", auth, verPeliculas);
+router.delete("/:id", auth, eliminarPeliculaPorId);
+router.put("/:id", auth, actualizarPelicula);
 
 //! 5.- Exportamos el enrutador
 module.exports = router;
