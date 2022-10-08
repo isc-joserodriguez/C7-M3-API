@@ -8,6 +8,7 @@
 
 //! 1.- Importar express
 const express = require("express");
+const auth = require("../middleware/auth");
 
 //! 2.- Instanciar enrutador
 const router = express.Router();
