@@ -5,7 +5,8 @@ const {
   eliminarUsuarioPorId,
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
-  login
+  login,
+  verInfoUsuario,
 } = require("./User.controller");
 
 const {
@@ -27,4 +28,5 @@ module.exports = {
   eliminarPeliculaPorId,
   actualizarPelicula,
   login,
+  verInfoUsuario,
 };

@@ -22,11 +22,13 @@ const {
   eliminarUsuariosPorFiltro,
   actualizarUsuario,
   login,
+  verInfoUsuario,
 } = require("../controllers");
 
 //! 4.- Declaramos las rutas
 router.post("/", registro);
 router.post("/login", login);
+router.get("/", auth, verInfoUsuario);
 router.get("/getAll", auth, verUsuarios);
 router.get("/filtrar", auth, filtrarUsuarios);
 router.delete("/:id", auth, eliminarUsuarioPorId);
