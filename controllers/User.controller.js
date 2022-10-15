@@ -51,7 +51,7 @@ const login = async (req, res) => {
 
 const verUsuarios = async (req, res) => {
   try {
-    if (req.user.tipo !== "cliente") {
+    if (req.user.tipo !== "admin") {
       return res
         .status(400)
         .json({

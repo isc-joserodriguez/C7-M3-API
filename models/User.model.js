@@ -12,9 +12,16 @@ const uniqueValidator = require("mongoose-unique-validator");
 
 //! 2.- Crear el esquema
 const UserSchema = new mongoose.Schema({
+  img: {
+    type: String,
+    default: "https://images.assetsdelivery.com/compings_v2/thesomeday123/thesomeday1231709/thesomeday123170900021.jpg"
+  },
   nombre: {
     type: String,
     required: true,
+  },
+  apellido: {
+    type: String,
   },
   correo: {
     type: String,

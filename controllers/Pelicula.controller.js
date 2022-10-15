@@ -13,13 +13,13 @@ const nuevaPelicula = async (req, res) => {
     }
 
     //Creamos nuestro usuario con lo que viene del body
-    const pelicula = new Pelicula(req.body);
+    const pelicula = new Pelicula({...req.body, uploader: req.user.idUser});
 
     const resp = await pelicula.save();
 
     return res.status(201).json({
       mensaje: "Pelicula creada",
-      detalles: await resp.populate("director", "nombre"),
+      detalles: await resp.populate("uploader", "nombre"),
     });
   } catch (e) {
     return res.status(400).json({ mensaje: "Error", detalles: e.message });
@@ -28,10 +28,10 @@ const nuevaPelicula = async (req, res) => {
 
 const verPeliculas = async (req, res) => {
   try {
-    // const peliculas = await Pelicula.find().populate("director");
-    const peliculas = await Pelicula.find().populate("director", "nombre");
+    // const peliculas = await Pelicula.find().populate("uploader");
+    const peliculas = await Pelicula.find().populate("uploader", "nombre");
     /* const peliculas = await Pelicula.find().populate({
-      path: "director",
+      path: "uploader",
       select: {
         nombre: true,
         tipo: true,
@@ -96,7 +96,7 @@ const actualizarPelicula = async (req, res) => {
       id,
       { $set: req.body },
       { new: true }
-    ).populate("director", "nombre");
+    ).populate("uploader", "nombre");
     return res
       .status(200)
       .json({ mensaje: "Pelicula actualizada", detalles: actualizado });

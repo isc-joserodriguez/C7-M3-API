@@ -18,6 +18,15 @@ const PeliculaSchema = new mongoose.Schema({
     required: true,
   },
   director: {
+    type: String,
+  },
+  img: {
+    type: String,
+  },
+  price: {
+    type: Number,
+  },
+  uploader: {
     type: mongoose.ObjectId,
     ref: "User",
   },
