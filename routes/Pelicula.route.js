@@ -19,11 +19,13 @@ const {
   verPeliculas,
   eliminarPeliculaPorId,
   actualizarPelicula,
+  verMisPeliculas,
 } = require("../controllers");
 
 //! 4.- Declaramos las rutas
 router.post("/", auth, nuevaPelicula);
 router.get("/getAll", auth, verPeliculas);
+router.get("/misPeliculas", auth, verMisPeliculas);
 router.delete("/:id", auth, eliminarPeliculaPorId);
 router.put("/:id", auth, actualizarPelicula);
 

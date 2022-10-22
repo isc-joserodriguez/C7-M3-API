@@ -23,6 +23,7 @@ const {
   actualizarUsuario,
   login,
   verInfoUsuario,
+  verUsuario,
 } = require("../controllers");
 
 //! 4.- Declaramos las rutas
@@ -31,6 +32,7 @@ router.post("/login", login);
 router.get("/", auth, verInfoUsuario);
 router.get("/getAll", auth, verUsuarios);
 router.get("/filtrar", auth, filtrarUsuarios);
+router.get("/:id", auth, verUsuario);
 router.delete("/:id", auth, eliminarUsuarioPorId);
 router.delete("/", auth, eliminarUsuariosPorFiltro);
 router.put("/:id", auth, actualizarUsuario);

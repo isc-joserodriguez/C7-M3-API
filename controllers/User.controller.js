@@ -70,6 +70,28 @@ const verUsuarios = async (req, res) => {
   }
 };
 
+const verUsuario = async (req, res) => {
+  try {
+    if (req.user.tipo !== "admin") {
+      return res.status(400).json({
+        mensaje: "Error",
+        detalles: "No tienes permiso para ver esto",
+      });
+    }
+    console.log(req.query)
+    const usuario = await User.findById(req.params.id);
+    if (!usuario)
+      return res
+        .status(404)
+        .json({ mensaje: "Error", detalles: "No existe este usuario" });
+    return res
+      .status(200)
+      .json({ mensaje: "Usuario encontrado", detalles: usuario });
+  } catch (e) {
+    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+  }
+};
+
 const filtrarUsuarios = async (req, res) => {
   try {
     const usuarios = await User.find(req.body);
@@ -165,4 +187,5 @@ module.exports = {
   actualizarUsuario,
   login,
   verInfoUsuario,
+  verUsuario,
 };

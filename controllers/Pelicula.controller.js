@@ -67,6 +67,28 @@ const verPeliculas = async (req, res) => {
   }
 };
 
+const verMisPeliculas = async (req, res) => {
+  try {
+    if (req.user.tipo !== "admin") {
+      return res.status(400).json({
+        mensaje: "Error",
+        detalles: "No tienes permiso para ver esto",
+      });
+    }
+    
+    const peliculas = await Pelicula.find({uploader: req.user.idUser}).populate("uploader", "nombre");
+    if (!peliculas.length)
+      return res
+        .status(404)
+        .json({ mensaje: "Error", detalles: "Esste usuario no ha creado películas" });
+    return res
+      .status(200)
+      .json({ mensaje: "Peliculas encontradas", detalles: peliculas });
+  } catch (e) {
+    return res.status(400).json({ mensaje: "Error", detalles: e.message });
+  }
+};
+
 const eliminarPeliculaPorId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -110,4 +132,5 @@ module.exports = {
   verPeliculas,
   eliminarPeliculaPorId,
   actualizarPelicula,
+  verMisPeliculas,
 };

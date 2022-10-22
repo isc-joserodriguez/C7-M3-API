@@ -7,6 +7,7 @@ const {
   actualizarUsuario,
   login,
   verInfoUsuario,
+  verUsuario,
 } = require("./User.controller");
 
 const {
@@ -14,6 +15,7 @@ const {
   verPeliculas,
   eliminarPeliculaPorId,
   actualizarPelicula,
+  verMisPeliculas,
 } = require("./Pelicula.controller");
 
 const {
@@ -36,4 +38,6 @@ module.exports = {
   verInfoUsuario,
   nuevaVenta,
   verVentas,
+  verUsuario,
+  verMisPeliculas,
 };
