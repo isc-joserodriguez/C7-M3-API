@@ -16,6 +16,11 @@ const {
   actualizarPelicula,
 } = require("./Pelicula.controller");
 
+const {
+  nuevaVenta,
+  verVentas,
+} = require("./Venta.controller")
+
 module.exports = {
   registro,
   verUsuarios,
@@ -29,4 +34,6 @@ module.exports = {
   actualizarPelicula,
   login,
   verInfoUsuario,
+  nuevaVenta,
+  verVentas,
 };
