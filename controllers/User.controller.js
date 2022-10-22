@@ -38,7 +38,7 @@ const login = async (req, res) => {
     if (user.verifyPassword(password)) {
       return res
         .status(200)
-        .json({ mensaje: "Login correcto", detalles: user.generateJWT() });
+        .json({ mensaje: "Login correcto", detalles: user.onSingGenerateJWT() });
     }
 
     return res
