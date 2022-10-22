@@ -57,7 +57,14 @@ const verUsuarios = async (req, res) => {
         detalles: "No tienes permiso para ver esto",
       });
     }
-    const usuarios = await User.find();
+    const usuarios = await User.find({},{
+      nombre: true,
+      apellido: true,
+      correo: true,
+      edad: true,
+      tipo: true,
+      img: true,
+    });
     if (!usuarios.length)
       return res
         .status(404)
